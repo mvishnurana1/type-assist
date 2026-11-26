@@ -15,12 +15,32 @@ npm run dev
 
 Then open http://localhost:3000.
 
-For a production build:
+To build the static site and preview it locally:
 
 ```bash
-npm run build
-npm start
+npm run build     # writes static files to ./out
+npm run preview   # serves ./out at http://localhost:3000
 ```
+
+## Deploy to GitHub Pages
+
+Deployment is automatic. `.github/workflows/deploy.yml` builds the site and publishes it on every push to `main`.
+
+**One-time setup:** on GitHub, go to the repo's **Settings → Pages**. Under **Build and deployment → Source**, choose **GitHub Actions**.
+
+After that:
+
+```bash
+git add .
+git commit -m "Deploy"
+git push
+```
+
+Watch progress in the repo's **Actions** tab. You can also redeploy without a new commit: open the **Deploy to GitHub Pages** workflow and click **Run workflow**. The site goes live at:
+
+**https://mvishnurana1.github.io/type-assist/**
+
+The `/type-assist` URL prefix is set automatically from the repo name (via `PAGES_BASE_PATH` in `next.config.ts`). It still works if you rename the repo or add a custom domain.
 
 ## Modes
 
@@ -79,4 +99,6 @@ lib/
   game.ts           modes, scoring, adaptive character picking, game reducer (pure)
   keyboard.ts       QWERTY layout, finger map, Shift rules, character names
   storage.ts        settings and personal bests in localStorage
+.github/workflows/
+  deploy.yml        builds and publishes to GitHub Pages on push to main
 ```
